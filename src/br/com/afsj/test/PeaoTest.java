@@ -20,27 +20,27 @@ public class PeaoTest {
 		Tabuleiro tabuleiro = new Tabuleiro();
 		tabuleiro.iniciar(new TradutorEspanhol());
 
-//		//Pe�as no tabuleiro
-//		Peao pb = Tabuleiro.peaoBranco1;
-//		IPeao ipb = Tabuleiro.iPeaoBranco1;
-//		
-//		Peao pp = Tabuleiro.peaoPreto1;
-//		IPeao ipp = Tabuleiro.iPeaoPreto1;
-//
-//		Tabuleiro.avaliarEventoPeca(pb, ipb);
-//		Tabuleiro.avaliarEventoTabuleiro(4, 5);
-//		assertAll("Mover Pe�o branco uma casa",
-//				() -> assertEquals(4, pb.getPosX()),
-//				() -> assertEquals(5, pb.getPosY())
-//				);
-//		
-//		
-//		Tabuleiro.avaliarEventoPeca(pp, ipp);
-//		Tabuleiro.avaliarEventoTabuleiro(3, 2);
-//		assertAll("Mover Pe�o preto uma casa",
-//				() -> assertEquals(3, pp.getPosX()),
-//				() -> assertEquals(2, pp.getPosY())
-//				);
+		//Pe�as no tabuleiro
+		Peao pb = Tabuleiro.peaoBranco1;
+		IPeao ipb = Tabuleiro.iPeaoBranco1;
+		
+		Peao pp = Tabuleiro.peaoPreto1;
+		IPeao ipp = Tabuleiro.iPeaoPreto1;
+
+		Tabuleiro.avaliarEventoPeca(pb, ipb);
+		Tabuleiro.avaliarEventoTabuleiro(4, 5);
+		assertAll("Mover Pe�o branco uma casa",
+				() -> assertEquals(4, pb.getPosX()),
+				() -> assertEquals(5, pb.getPosY())
+				);
+		
+		
+		Tabuleiro.avaliarEventoPeca(pp, ipp);
+		Tabuleiro.avaliarEventoTabuleiro(3, 2);
+		assertAll("Mover Pe�o preto uma casa",
+				() -> assertEquals(3, pp.getPosX()),
+				() -> assertEquals(2, pp.getPosY())
+				);
 		
 	}
 	
@@ -168,6 +168,27 @@ public class PeaoTest {
 	void movimentoRestricaodeSobreposicaoPeaoAdversario() {
 		Tabuleiro tabuleiro = new Tabuleiro();
 		tabuleiro.iniciar(new TradutorEspanhol());
+		
+		Peao pb = Tabuleiro.peaoBranco4;
+		IPeao ipb = Tabuleiro.iPeaoBranco4;
+ 		
+ 		Peao pp = Tabuleiro.peaoPreto4;
+ 		IPeao ipp = Tabuleiro.iPeaoPreto4;
+ 		
+ 		Tabuleiro.avaliarEventoPeca(pb, ipb);
+		Tabuleiro.avaliarEventoTabuleiro(3, 4);
+		assertAll("Mover Pe�o branco duas casas",
+				() -> assertEquals(3, pb.getPosX()),
+				() -> assertEquals(4, pb.getPosY())
+				);
+		
+		Tabuleiro.avaliarEventoPeca(pp, ipp);
+		Tabuleiro.avaliarEventoTabuleiro(6, 6);
+		assertAll("Mover Pe�o preto duas casas",
+				() -> assertEquals(5, pb.getPosX()),
+				() -> assertEquals(6, pb.getPosY())
+				);
+		
 	}
 	
 	//TADSXD-45
