@@ -88,7 +88,7 @@ public class PeaoTest {
 		new Tabuleiro().iniciar(new TradutorEspanhol());
 	}
 
-	//TADSXD-3
+	//TADSXD-3 e TADSXD-1 (os testes funcionais são identicos e foram feitos no mesmo teste unitário JUnit)
 	@Test
 	@DisplayName("Movimento peao branco uma casa para frente")
 	void movimentoNormalPeao() {
@@ -96,25 +96,14 @@ public class PeaoTest {
 		tabuleiro.iniciar(new TradutorEspanhol());
 
 		//Pe�as no tabuleiro
-		Peao pb = Tabuleiro.peaoBranco1;
-		IPeao ipb = Tabuleiro.iPeaoBranco1;
-		
-		Peao pp = Tabuleiro.peaoPreto1;
-		IPeao ipp = Tabuleiro.iPeaoPreto1;
+		Peao pb = Tabuleiro.peaoBranco4;
+		IPeao ipb = Tabuleiro.iPeaoBranco4;
 
 		Tabuleiro.avaliarEventoPeca(pb, ipb);
-		Tabuleiro.avaliarEventoTabuleiro(4, 5);
+		Tabuleiro.avaliarEventoTabuleiro(3, 5);
 		assertAll("Mover Pe�o branco uma casa",
-				() -> assertEquals(4, pb.getPosX()),
+				() -> assertEquals(3, pb.getPosX()),
 				() -> assertEquals(5, pb.getPosY())
-				);
-		
-		
-		Tabuleiro.avaliarEventoPeca(pp, ipp);
-		Tabuleiro.avaliarEventoTabuleiro(3, 2);
-		assertAll("Mover Pe�o preto uma casa",
-				() -> assertEquals(3, pp.getPosX()),
-				() -> assertEquals(2, pp.getPosY())
 				);
 		
 	}
@@ -125,6 +114,22 @@ public class PeaoTest {
 	void movimentoDuploPeao() {
 		Tabuleiro tabuleiro = new Tabuleiro();
 		tabuleiro.iniciar(new TradutorEspanhol());
+		/** Pré-Condições
+		 * Posicionando as peças brancas e pretas no tabuleiro conforme o documento de testes */
+		Peao pb4 = Tabuleiro.peaoBranco4; // Peão branco em d2 (3,6)
+		IPeao ipb4 = Tabuleiro.iPeaoBranco4;
+		
+		// Selecionar o peão branco em d2.
+		Tabuleiro.avaliarEventoPeca(pb4, ipb4);
+		
+		// Selecionar a casa d4.
+		Tabuleiro.avaliarEventoTabuleiro(3, 4); // Mover para (3,4) que é d4
+		
+		/** Resultados Esperados */
+		assertAll("Mover Peão branco de d2 para d4 (movimento duplo)",
+				() -> assertEquals(3, pb4.getPosX(), "A posição X do peão deve ser 3 (coluna d)"),
+				() -> assertEquals(4, pb4.getPosY(), "A posição Y do peão deve ser 4 (fileira 4)")
+		);
 	}
 	
 	//TADSXD-6
@@ -133,6 +138,32 @@ public class PeaoTest {
 	void movimentoCapturaPeao() {
 		Tabuleiro tabuleiro = new Tabuleiro();
 		tabuleiro.iniciar(new TradutorEspanhol());
+		Peao pb = Tabuleiro.peaoBranco4;
+		IPeao ipb = Tabuleiro.iPeaoBranco4; 
+		Tabuleiro.avaliarEventoPeca(pb, ipb);
+		Tabuleiro.avaliarEventoTabuleiro(3,4);
+		assertAll("Peão branco movido para d4",
+			() -> assertEquals(3, pb.getPosX()),
+			() -> assertEquals(4, pb.getPosY())
+			);
+		
+		
+		Peao pp = Tabuleiro.peaoPreto3;
+		IPeao ipp = Tabuleiro.iPeaoPreto3;
+		Tabuleiro.avaliarEventoPeca(pp, ipp);
+		Tabuleiro.avaliarEventoTabuleiro(2, 3);
+		assertAll("Peão preto movido para c5",
+			() -> assertEquals(2, pp.getPosX()),
+			() -> assertEquals(3, pp.getPosY())
+		);
+		
+		// Captura: Peão branco de e4 (4,4) para d5 (3,3)
+		Tabuleiro.avaliarEventoPeca(pb, ipb);
+		Tabuleiro.avaliarEventoPeca(pp, ipp);
+		assertAll("Peão branco captura peão preto em c5",
+			() -> assertEquals(2, pb.getPosX()),
+			() -> assertEquals(3, pb.getPosY())
+			);
 	}
 	
 	//TADSXD-9
