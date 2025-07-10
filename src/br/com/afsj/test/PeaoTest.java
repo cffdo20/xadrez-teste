@@ -183,10 +183,16 @@ public class PeaoTest {
 				);
 		
 		Tabuleiro.avaliarEventoPeca(pp, ipp);
-		Tabuleiro.avaliarEventoTabuleiro(6, 6);
+		Tabuleiro.avaliarEventoTabuleiro(3, 3);
 		assertAll("Mover Pe�o preto duas casas",
-				() -> assertEquals(5, pb.getPosX()),
-				() -> assertEquals(6, pb.getPosY())
+				() -> assertEquals(3, pp.getPosX()),
+				() -> assertEquals(3, pp.getPosY())
+				);
+		Tabuleiro.avaliarEventoPeca(pb, ipb);
+		Tabuleiro.avaliarEventoTabuleiro(3, 3);
+		assertAll("Mover Pe�o branco para sobrepor o peão preto",
+				() -> assertEquals(3, pb.getPosX()),
+				() -> assertEquals(4, pb.getPosY())
 				);
 		
 	}
@@ -197,6 +203,56 @@ public class PeaoTest {
 		void movimentoRestricaodeSobreposicaoPeaoAliadoDiagonal() {
 			Tabuleiro tabuleiro = new Tabuleiro();
 			tabuleiro.iniciar(new TradutorEspanhol());
+			
+			Peao pb = Tabuleiro.peaoBranco3;
+			IPeao ipb = Tabuleiro.iPeaoBranco3;
+	 		
+	 		Peao pp = Tabuleiro.peaoPreto3;
+	 		IPeao ipp = Tabuleiro.iPeaoPreto3;
+			
+			Peao pb2 = Tabuleiro.peaoBranco4;
+			IPeao ipb2 = Tabuleiro.iPeaoBranco4;
+	 		
+	 		Peao pp2 = Tabuleiro.peaoPreto4;
+	 		IPeao ipp2 = Tabuleiro.iPeaoPreto4;
+	 		
+	 		Tabuleiro.avaliarEventoPeca(pb2, ipb2);
+			Tabuleiro.avaliarEventoTabuleiro(3, 5);
+			assertAll("Mover Pe�o branco de d2 duas casas",
+					() -> assertEquals(3, pb2.getPosX()),
+					() -> assertEquals(5, pb2.getPosY())
+					);
+			
+			Tabuleiro.avaliarEventoPeca(pp2, ipp2);
+			Tabuleiro.avaliarEventoTabuleiro(3, 3);
+			assertAll("Mover Pe�o preto de d7 duas casas",
+					() -> assertEquals(3, pp2.getPosX()),
+					() -> assertEquals(3, pp2.getPosY())
+					);
+			Tabuleiro.avaliarEventoPeca(pb, ipb);
+			Tabuleiro.avaliarEventoTabuleiro(2, 4);
+			assertAll("Mover Pe�o branco de c2 duas casas ",
+					() -> assertEquals(2, pb.getPosX()),
+					() -> assertEquals(4, pb.getPosY())
+					);
+			Tabuleiro.avaliarEventoPeca(pp, ipp);
+			Tabuleiro.avaliarEventoTabuleiro(2, 3);
+			assertAll("Mover Pe�o preto de c7 duas casas",
+					() -> assertEquals(2, pp.getPosX()),
+					() -> assertEquals(3, pp.getPosY())
+					);
+			Tabuleiro.avaliarEventoPeca(pb, ipb);
+			Tabuleiro.avaliarEventoTabuleiro(3, 3);
+			assertAll("Mover Pe�o branco para capturar peão preto",
+					() -> assertEquals(3, pb.getPosX()),
+					() -> assertEquals(3, pb.getPosY())
+					);
+			Tabuleiro.avaliarEventoPeca(pb2, ipb2);
+			Tabuleiro.avaliarEventoTabuleiro(3, 3);
+			assertAll("Mover Pe�o branco uma casa tentanto sobrepor outro peão branco",
+					() -> assertEquals(3, pb2.getPosX()),
+					() -> assertEquals(4, pb2.getPosY())
+					);
 		}
 		
 
