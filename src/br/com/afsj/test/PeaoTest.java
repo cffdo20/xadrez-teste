@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,12 +14,79 @@ import br.com.afsj.model.Peao;
 import br.com.afsj.model.Rainha;
 import br.com.afsj.model.Torre;
 import br.com.afsj.model.Cavalo;
+import br.com.afsj.model.ArrayPecas;
 import br.com.afsj.model.Bispo;
 import br.com.afsj.model.Tabuleiro;
 import br.com.afsj.model.TradutorEspanhol;
 import br.com.afsj.view.IPeao;
 
 public class PeaoTest {
+
+	@BeforeEach
+	void resetarEstadoDoTabuleiro() {
+		// Recria os objetos estáticos manualmente
+		Tabuleiro.listaBrancas = new ArrayPecas();
+		Tabuleiro.listaPretas = new ArrayPecas();
+//		Tabuleiro.pecaMarcada = null;
+//		Tabuleiro.iPecaMarcada = null;
+//
+//		// Redefine a cor do jogador
+//		Tabuleiro.corJogadorAtual = Xadrez.corBRANCA;
+
+		// Recria os peões
+		Tabuleiro.peaoBranco1 = new Peao();
+		Tabuleiro.iPeaoBranco1 = new IPeao(Tabuleiro.peaoBranco1);
+		Tabuleiro.peaoBranco2 = new Peao();
+		Tabuleiro.iPeaoBranco2 = new IPeao(Tabuleiro.peaoBranco2);
+		Tabuleiro.peaoBranco3 = new Peao();
+		Tabuleiro.iPeaoBranco3 = new IPeao(Tabuleiro.peaoBranco3);
+		Tabuleiro.peaoBranco4 = new Peao();
+		Tabuleiro.iPeaoBranco4 = new IPeao(Tabuleiro.peaoBranco4);
+		Tabuleiro.peaoBranco6 = new Peao();
+		Tabuleiro.iPeaoBranco6 = new IPeao(Tabuleiro.peaoBranco6);
+		Tabuleiro.peaoPreto3 = new Peao();
+		Tabuleiro.iPeaoPreto3 = new IPeao(Tabuleiro.peaoPreto3);
+		Tabuleiro.peaoPreto4 = new Peao();
+		Tabuleiro.iPeaoPreto4 = new IPeao(Tabuleiro.peaoPreto4);
+		
+		// Peões Brancos
+		Tabuleiro.peaoBranco1.mover(0, 6);
+		Tabuleiro.iPeaoBranco1.mover(0, 6);
+
+		Tabuleiro.peaoBranco2.mover(1, 6);
+		Tabuleiro.iPeaoBranco2.mover(1, 6);
+
+		Tabuleiro.peaoBranco3.mover(2, 6);
+		Tabuleiro.iPeaoBranco3.mover(2, 6);
+
+		Tabuleiro.peaoBranco4.mover(3, 6);
+		Tabuleiro.iPeaoBranco4.mover(3, 6);
+
+		Tabuleiro.peaoBranco6.mover(5, 6);
+		Tabuleiro.iPeaoBranco6.mover(5, 6);
+
+		// Peões Pretos
+		Tabuleiro.peaoPreto1.mover(0, 1);
+		Tabuleiro.iPeaoPreto1.mover(0, 1);
+
+		Tabuleiro.peaoPreto2.mover(1, 1);
+		Tabuleiro.iPeaoPreto2.mover(1, 1);
+
+		Tabuleiro.peaoPreto3.mover(2, 1);
+		Tabuleiro.iPeaoPreto3.mover(2, 1);
+
+		Tabuleiro.peaoPreto4.mover(3, 1);
+		Tabuleiro.iPeaoPreto4.mover(3, 1);
+
+		Tabuleiro.peaoPreto6.mover(5, 1);
+		Tabuleiro.iPeaoPreto6.mover(5, 1);
+
+		
+		
+
+		// Recria o tabuleiro
+		new Tabuleiro().iniciar(new TradutorEspanhol());
+	}
 
 	//TADSXD-3
 	@Test
@@ -723,7 +791,7 @@ public class PeaoTest {
 				() -> assertEquals(3, pp.getPosY())
 				);
 		Tabuleiro.avaliarEventoPeca(pb, ipb);
-		Tabuleiro.avaliarEventoTabuleiro(3, 3);
+		Tabuleiro.avaliarEventoPeca(pp, ipp);
 		assertAll("Mover Pe�o branco para sobrepor o peão preto",
 				() -> assertEquals(3, pb.getPosX()),
 				() -> assertEquals(4, pb.getPosY())
@@ -750,12 +818,15 @@ public class PeaoTest {
 	 		Peao pp2 = Tabuleiro.peaoPreto4;
 	 		IPeao ipp2 = Tabuleiro.iPeaoPreto4;
 	 		
-	 		Tabuleiro.avaliarEventoPeca(pb2, ipb2);
-			Tabuleiro.avaliarEventoTabuleiro(3, 5);
+	 		System.out.println("Posição inicial: " + pb2.getPosX() + ", " + pb2.getPosY());
+
+			Tabuleiro.avaliarEventoPeca(pb2, ipb2);
+			Tabuleiro.avaliarEventoTabuleiro(3, 4);
 			assertAll("Mover Pe�o branco de d2 duas casas",
 					() -> assertEquals(3, pb2.getPosX()),
-					() -> assertEquals(5, pb2.getPosY())
+					() -> assertEquals(4, pb2.getPosY())
 					);
+			System.out.println("Posição após tentativa: " + pb2.getPosX() + ", " + pb2.getPosY());
 			
 			Tabuleiro.avaliarEventoPeca(pp2, ipp2);
 			Tabuleiro.avaliarEventoTabuleiro(3, 3);
@@ -763,26 +834,37 @@ public class PeaoTest {
 					() -> assertEquals(3, pp2.getPosX()),
 					() -> assertEquals(3, pp2.getPosY())
 					);
-			Tabuleiro.avaliarEventoPeca(pb, ipb);
+	 		
+	 		Tabuleiro.avaliarEventoPeca(pb, ipb);
 			Tabuleiro.avaliarEventoTabuleiro(2, 4);
 			assertAll("Mover Pe�o branco de c2 duas casas ",
 					() -> assertEquals(2, pb.getPosX()),
 					() -> assertEquals(4, pb.getPosY())
 					);
+
 			Tabuleiro.avaliarEventoPeca(pp, ipp);
 			Tabuleiro.avaliarEventoTabuleiro(2, 3);
 			assertAll("Mover Pe�o preto de c7 duas casas",
 					() -> assertEquals(2, pp.getPosX()),
 					() -> assertEquals(3, pp.getPosY())
 					);
+			
 			Tabuleiro.avaliarEventoPeca(pb, ipb);
-			Tabuleiro.avaliarEventoTabuleiro(3, 3);
+			Tabuleiro.avaliarEventoPeca(pp2, ipp2);
 			assertAll("Mover Pe�o branco para capturar peão preto",
 					() -> assertEquals(3, pb.getPosX()),
 					() -> assertEquals(3, pb.getPosY())
 					);
+			
+			Tabuleiro.avaliarEventoPeca(pp, ipp);
+			Tabuleiro.avaliarEventoTabuleiro(2, 4);
+			assertAll("Mover Pe�o preto de c7 duas casas",
+					() -> assertEquals(2, pp.getPosX()),
+					() -> assertEquals(4, pp.getPosY())
+					);
+			
 			Tabuleiro.avaliarEventoPeca(pb2, ipb2);
-			Tabuleiro.avaliarEventoTabuleiro(3, 3);
+			Tabuleiro.avaliarEventoPeca(pb, ipb);
 			assertAll("Mover Pe�o branco uma casa tentanto sobrepor outro peão branco",
 					() -> assertEquals(3, pb2.getPosX()),
 					() -> assertEquals(4, pb2.getPosY())
